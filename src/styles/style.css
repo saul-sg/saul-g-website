@@ -1,0 +1,475 @@
+@layer reset, base, layout, components, utilities;
+
+@layer reset {
+
+  /* Box sizing rules */
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  /* Prevent font size inflation */
+  html {
+    -moz-text-size-adjust: none;
+    -webkit-text-size-adjust: none;
+    text-size-adjust: none;
+  }
+
+  /* Remove default margin in favour of better control in authored CSS */
+  body,
+  h1,
+  h2,
+  h3,
+  h4,
+  p,
+  figure,
+  blockquote,
+  dl,
+  dd {
+    margin: 0;
+  }
+
+  /* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+  [role="list"] {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Set core body defaults */
+  body {
+    min-height: 100vh;
+    line-height: 1.5;
+  }
+
+  /* Set shorter line heights on headings and interactive elements */
+  h1,
+  h2,
+  h3,
+  h4,
+  button,
+  input,
+  label {
+    line-height: 1.1;
+  }
+
+  /* Balance text wrapping on headings */
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+  }
+
+  p,
+  li {
+    text-wrap: pretty;
+  }
+
+  /* Make images easier to work with */
+  img,
+  picture {
+    max-width: 100%;
+    display: block;
+  }
+
+  /* Inherit fonts for inputs and buttons */
+  input,
+  button,
+  textarea,
+  select {
+    font-family: inherit;
+    font-size: inherit;
+  }
+
+  /* Make sure textareas without a rows attribute are not tiny */
+  textarea:not([rows]) {
+    min-height: 10em;
+  }
+
+  /* Anything that has been anchored to should have extra scroll margin */
+  :target {
+    scroll-margin-block: 5ex;
+  }
+}
+
+@layer base {
+  @font-face {
+    font-family: "jost";
+    src: url("/fonts/Jost-Regular.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: "spectral";
+    src: url("/fonts/Spectral-Light.ttf") format("truetype");
+    font-weight: light;
+    font-style: normal;
+  }
+
+  /* Colors and Font Sizes */
+  :root {
+    /* White Colors and Grey */
+    --clr-white: #fff;
+    --clr-smokey-white: #f8f7f2;
+    --clr-grey: #cdcdcd;
+
+    /* Black Colors */
+    --clr-light-black: hsl(300, 1%, 28%);
+    --clr-black: #2d2a29;
+    --clr-dark-black: #002;
+
+    /* Brown Colors */
+    --clr-brown-300: #bba185;
+    --clr-brown-400: #8f765e;
+    --clr-brown-500: #7c6553;
+    --clr-brown-600: #655246;
+    --clr-brown-610: hsl(23, 17%, 25%);
+    --clr-brown-700: #5a493f;
+
+    /* Green Colors */
+    --clr-green-300: #95ac85;
+    --clr-green-500: #608656;
+    --clr-green-700: #205b29;
+
+    /* Blue Colors */
+    --clr-blue-200: #cad4e8;
+    --clr-blue-400: #4b82bc;
+    --clr-blue-600: #1d63a8;
+
+    /* Organge Colors */
+    --clr-orange-200: #f0c48a;
+    --clr-orange-400: #eaa658;
+    --clr-orange-600: #e68e27;
+
+    /* Red Colors */
+    --clr-red-100: #ecb99e;
+    --clr-red-200: #e8a182;
+    --clr-red-400: #dd6754;
+    --clr-red-600: #d62e2f;
+
+    --ff-heading: "jost";
+    --ff-body: "spectral";
+
+    --fs-300: 0.875rem;
+    --fs-400: 1rem;
+    --fs-500: 1.125rem;
+    --fs-600: 1.25rem;
+    --fs-700: 1.5rem;
+    --fs-800: 2rem;
+    --fs-900: 3.75rem;
+    --fs-1000: 3.75rem;
+
+    @media (width >=768px) {
+      --fs-500: 1.25rem;
+      --fs-600: 1.5rem;
+      --fs-700: 2rem;
+      --fs-800: 3rem;
+      --fs-900: 5rem;
+      --fs-1000: 7.5rem;
+    }
+  }
+
+  /* Text Color Variables */
+  :root {
+    --text-main: var(--clr-smokey-white);
+    --text-high-contrast: var(--clr-white);
+
+    --text-brand: var(--clr-brown-300);
+    --text-brand-dark: var(--clr-brown-500);
+
+    --text-accent-o: var(--clr-orange-400);
+    --text-accent-g: var(--clr-green-500);
+    --text-accent-dg: var(--clr-green-700);
+
+    --background-brand: var(--clr-brown-610);
+
+    --background-light: var(--clr-light-black);
+    --background-main: var(--clr-black);
+    --background-dark: var(--clr-dark-black);
+
+    --btn-text: var(--clr-green-300);
+    --btn-bg-main: var(--clr-green-700);
+    --btn-bg-light: var(--clr-green-500);
+
+    --text-span-b: var(--clr-blue-600);
+    --text-span-r: var(--clr-red-400);
+    --text-span-o: var(--clr-orange-400);
+  }
+
+  /* Font Size Variables */
+  :root {
+    --font-size-heading-sm: var(--fs-700);
+    --font-size-heading-regular: var(--fs-800);
+    --font-size-heading-lg: var(--fs-900);
+    --font-size-heading-xl: var(--fs-1000);
+
+    --font-size-sm: var(--fs-300);
+    --font-size-regular: var(--fs-400);
+    --font-size-md: var(--fs-500);
+    --font-size-lg: var(--fs-600);
+  }
+
+  /* Border Radius Variables */
+  :root {
+    --border-radius-1: 0.25rem;
+    --border-radius-2: 0.5rem;
+    --border-radius-3: 0.75rem;
+  }
+
+  /* Root Font Family and Line Height Variables */
+  html {
+    font-family: var(--ff-body);
+    line-height: 1.5;
+  }
+
+
+  body {
+    font-size: var(--font-size-regular);
+    color: var(--text-main);
+    background-color: var(--background-main);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    /* font-family: var(--ff-heading); */
+    color: var(--text-high-contrast);
+  }
+
+  h1 {
+    font-size: var(--font-size-heading-lg);
+  }
+
+  a {
+    color: var(--text-high-contrast);
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  a:hover,
+  a:focus-visible {
+    color: var(--text-brand);
+  }
+
+  img {
+    border-radius: var(--border-radius-3);
+  }
+
+}
+
+@layer layout {
+  .wrapper {
+    --wrapper-max-width: 800px;
+
+    max-width: var(--wrapper-max-width);
+    margin-inline: auto;
+    padding-inline: 1rem;
+
+    &[data-width="narrow"] {
+      --wrapper-max-width: 600px;
+    }
+
+    &[data-width="wide"] {
+      --wrapper-max-width: 1000px;
+    }
+  }
+}
+
+
+@layer component {
+
+  .site-header {
+    padding-block: 1rem;
+
+    .site-header__inner {
+      display: flex;
+      gap: 0.5rem 1rem;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .primary-navigation {
+      padding-inline: 2rem;
+
+      ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem 1rem;
+      }
+    }
+  }
+
+  .hero {
+    padding-inline: 1rem;
+    .wrapper {
+      border: 1px solid var(--background-light);
+      border-radius: var(--border-radius-3);
+      padding-block: 1rem;
+
+    }
+
+    .hero__inner {
+      display: flex;
+      gap: 1rem;
+
+      img {
+        width: 100px;
+        object-fit: contain;
+
+        @media(width > 600px) {
+          width: 180px;
+        }
+      }
+    }
+
+    .hero-text {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      flex-grow: 1;
+      text-align: left;
+      margin-inline-start: 1rem;
+
+      h3 {
+        font-family: var(--ff-heading);
+      }
+
+      span {
+        color: var(--text-accent-o)
+      }
+
+     @media (width < 600px){
+      font-size: var(--font-size-sm);
+     }
+     
+    }
+  }
+
+  .projects{
+
+    .projects__inner{
+      display: flex;
+      
+      h2{
+        text-transform: capitalize;
+      }
+    }
+  }
+}
+
+
+
+@layer utilities {
+
+  /* used to improve links for screens readers */
+  /* example would be links with text value "learn more" adding a more detail text about the link, wrapped in span tag with class of '.visually-hidden' */
+  .visually-hidden {
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+  }
+
+  .text-main {
+    color: var(--text-main);
+  }
+
+  .text-high-contraxt {
+    color: var(--text-high-contrast);
+  }
+
+  .text-brand {
+    color: var(--text-brand);
+  }
+
+  .text-brand-dark {
+    color: var(--text-brand-dark);
+  }
+
+  .text-accent-o {
+    color: var(--text-accent-o);
+  }
+
+  .text-accent-g {
+    color: var(--text-accent-g);
+  }
+
+  .text-accent-dg {
+    color: var(--text-accent-dg);
+  }
+
+  .background-brand {
+    background-color: var(--background-brand);
+  }
+
+  .background-light {
+    background-color: var(--background-light);
+  }
+
+  .background-main {
+    background-color: var(--background-main);
+  }
+
+  .background-dark {
+    background-color: var(--background-dark);
+  }
+
+  .text-span-b {
+    color: var(--text-span-b);
+  }
+
+  .text-span-r {
+    color: var(--text-span-r);
+  }
+
+  .text-span-o {
+    color: var(--text-span-o);
+  }
+
+  .font-size-sm {
+    font-size: var(--font-size-sm);
+  }
+
+  .font-size-regular {
+    font-size: var(--font-size-regular);
+  }
+
+  .font-size-md {
+    font-size: var(--font-size-md);
+  }
+
+  .font-size-lg {
+    font-size: var(--font-size-lg);
+  }
+
+  .section-title {
+    font-size: var(--font-size-heading-regular);
+  }
+
+  .sub-section-title {
+    font-size: var(--font-size-heading-sm);
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  .stack > * + * {
+    margin-block-start: 3em;
+
+    &[data-stack="sm-first-child-top-margin"]{
+      margin-block-start: 1rem;
+    }
+  }
+}
